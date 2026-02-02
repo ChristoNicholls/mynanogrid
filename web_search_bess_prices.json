@@ -1,0 +1,42 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "lithium battery energy storage BESS prices South Africa 2026 kWh",
+  "results": [
+    {
+      "title": "South Africa: Storing energy for sustainability, the BESS difference",
+      "url": "https://www.zawya.com/en/economy/africa/south-africa-storing-energy-for-sustainability-the-bess-difference-vumnct82",
+      "domain": "www.zawya.com",
+      "description": "Benchmark Mineral Intelligence estimates that Li-ion battery prices have reduced from US$290 in 2014 to $78 per kilowatt-hour",
+      "favicon_url": "https://www.zawya.com/favicon.ico"
+    },
+    {
+      "title": "Price per kilowatt for energy storage lithium batteries | JUMANJI SOLAR",
+      "url": "https://www.jumanjitreefelling.co.za/Tue-10-Sep-2024-28749.html",
+      "domain": "www.jumanjitreefelling.co.za",
+      "description": "African leader in solar containers, photovoltaic containers, BESS containers, energy storage containers, and mobile solar power solutions.",
+      "favicon_url": "https://www.jumanjitreefelling.co.za/img/favicon.ico"
+    },
+    {
+      "title": "BESS Revolutionizes Power Supply in South Africa - LinkedIn",
+      "url": "https://www.linkedin.com/posts/tsg-south-africa_bess-activity-7406715360474730496-M9pi",
+      "domain": "www.linkedin.com",
+      "description": "Battery Energy Storage Systems (BESS) are reshaping how South African industries secure, optimise and control their power supply.",
+      "favicon_url": ""
+    },
+    {
+      "title": "Battery storage system prices continue to fall sharply, BNEF and Ember reports find - Energy-Storage.News",
+      "url": "https://www.energy-storage.news/battery-storage-system-prices-continue-to-fall-sharply-bnef-and-ember-reports-find/",
+      "domain": "www.energy-storage.news",
+      "description": "Global average prices for battery storage systems fell by almost a third year-over-year, with sharp cost declines expected to continue.",
+      "favicon_url": "https://www.energy-storage.news/wp-content/uploads/2021/04/cropped-esn-icon-32x32.png"
+    },
+    {
+      "title": "",
+      "url": "",
+      "domain": "",
+      "description": "",
+      "favicon_url": ""
+    }
+  ]
+}

@@ -1,0 +1,226 @@
+{
+  "project_info": {
+    "title": "R50,000 Solar PV + Battery Energy Storage Solution",
+    "subtitle": "15-20 kWh Daily Base Load Capacity",
+    "engineer": "C. Nicholls",
+    "company": "UtCS (Pty) Ltd",
+    "date": "2026-02-02",
+    "classification": "CONFIDENTIAL",
+    "reference": "UTCS-SOLAR-2026-001"
+  },
+  "design": {
+    "pv": {
+      "panel_wattage": 550,
+      "num_panels": 5,
+      "total_capacity_kw": 2.75,
+      "brand": "JA Solar JAM72S30",
+      "type": "Monocrystalline PERC",
+      "efficiency": "21.3%",
+      "dimensions": "2278 x 1134 x 35 mm",
+      "warranty": "25 years performance"
+    },
+    "inverter": {
+      "model": "Huawei SUN2000-3KTL-L1",
+      "capacity_kw": 3,
+      "type": "Hybrid String Inverter",
+      "max_efficiency": "98.3%",
+      "mppt_trackers": 2,
+      "phases": "Single Phase",
+      "warranty": "10 years",
+      "features": "WiFi, FusionSolar App, Smart Monitoring"
+    },
+    "battery": {
+      "model": "Huawei LUNA2000-5-S0",
+      "num_modules": 2,
+      "module_capacity_kwh": 5.12,
+      "total_capacity_kwh": 10.24,
+      "usable_capacity_kwh": 9.22,
+      "type": "Lithium Iron Phosphate (LiFePO4)",
+      "cycles": "6000 @ 90% DoD",
+      "warranty": "10 years",
+      "features": "Modular, Expandable, Active Safety"
+    },
+    "performance": {
+      "daily_pv_generation_kwh": 9.28,
+      "battery_usable_kwh": 9.22,
+      "total_daily_capacity_kwh": 18.5,
+      "target_daily_load_kwh": 15.0,
+      "autonomy_days": 0.89,
+      "peak_sun_hours": 4.5,
+      "system_efficiency": "75%",
+      "self_consumption": "85%"
+    }
+  },
+  "costs": {
+    "capex": {
+      "pv_panels": {
+        "description": "5x 550W JA Solar Monocrystalline Panels",
+        "unit_cost": 1520,
+        "quantity": 5,
+        "total": 7600
+      },
+      "inverter": {
+        "description": "Huawei SUN2000-3KTL-L1 3kW Hybrid Inverter with WiFi",
+        "unit_cost": 8300,
+        "quantity": 1,
+        "total": 8300
+      },
+      "battery": {
+        "description": "2x Huawei LUNA2000 5.12kWh LiFePO4 Battery Modules",
+        "unit_cost": 4200,
+        "quantity": 2,
+        "total": 8400
+      },
+      "smart_meter": {
+        "description": "Landis+Gyr E460 4-Quadrant Bi-Directional Smart Meter",
+        "unit_cost": 2550,
+        "quantity": 1,
+        "total": 2550
+      }
+    },
+    "capex_total": 26850,
+    "support_equipment": {
+      "wifi_router": {
+        "description": "TP-Link WiFi Router (Outdoor Rated)",
+        "unit_cost": 620,
+        "quantity": 1,
+        "total": 620
+      },
+      "cctv_camera": {
+        "description": "WiFi CCTV Camera 2MP (Inverter Monitoring)",
+        "unit_cost": 880,
+        "quantity": 1,
+        "total": 880
+      },
+      "mounting_structure": {
+        "description": "Aluminum Mounting Rails & Clamps (5 panels)",
+        "unit_cost": 330,
+        "quantity": 5,
+        "total": 1650
+      },
+      "ac_dc_protection": {
+        "description": "AC/DC Surge Protection, DC Isolator, AC Breaker",
+        "unit_cost": 1650,
+        "quantity": 1,
+        "total": 1650
+      },
+      "cabling": {
+        "description": "Solar DC Cable 4mm\u00b2 (15m), AC Cable 4mm\u00b2 (12m)",
+        "unit_cost": 35,
+        "quantity": 27,
+        "total": 945
+      },
+      "connectors": {
+        "description": "MC4 Connectors, Cable Glands, Terminals",
+        "unit_cost": 420,
+        "quantity": 1,
+        "total": 420
+      },
+      "earthing": {
+        "description": "Earthing Kit (Rods, Clamps, Earth Cable)",
+        "unit_cost": 580,
+        "quantity": 1,
+        "total": 580
+      },
+      "conduit": {
+        "description": "PVC Conduit 25mm & Fittings (10m)",
+        "unit_cost": 26,
+        "quantity": 10,
+        "total": 260
+      },
+      "enclosure": {
+        "description": "Weatherproof Enclosure for Router/CCTV (IP55)",
+        "unit_cost": 380,
+        "quantity": 1,
+        "total": 380
+      }
+    },
+    "support_total": 7385,
+    "installation": {
+      "pv_installation": {
+        "description": "PV Panel Installation & DC Wiring (5 panels)",
+        "unit_cost": 250,
+        "quantity": 5,
+        "total": 1250
+      },
+      "inverter_battery_install": {
+        "description": "Inverter & Battery Installation, Configuration",
+        "unit_cost": 1500,
+        "quantity": 1,
+        "total": 1500
+      },
+      "electrical_work": {
+        "description": "DB Board Modifications, AC Wiring, Testing",
+        "unit_cost": 1800,
+        "quantity": 1,
+        "total": 1800
+      },
+      "smart_meter_installation": {
+        "description": "E460 Smart Meter Installation & Configuration",
+        "unit_cost": 750,
+        "quantity": 1,
+        "total": 750
+      },
+      "cctv_installation": {
+        "description": "CCTV Camera Installation & WiFi Setup",
+        "unit_cost": 520,
+        "quantity": 1,
+        "total": 520
+      },
+      "router_network_setup": {
+        "description": "WiFi Router & Network Configuration",
+        "unit_cost": 350,
+        "quantity": 1,
+        "total": 350
+      },
+      "commissioning_training": {
+        "description": "System Testing, Commissioning & Training",
+        "unit_cost": 850,
+        "quantity": 1,
+        "total": 850
+      }
+    },
+    "installation_total": 7020,
+    "professional_services": {
+      "design_engineering": {
+        "description": "Electrical Design & Single-Line Diagram",
+        "unit_cost": 1000,
+        "quantity": 1,
+        "total": 1000
+      },
+      "coc": {
+        "description": "Certificate of Compliance (CoC)",
+        "unit_cost": 750,
+        "quantity": 1,
+        "total": 750
+      },
+      "documentation": {
+        "description": "As-Built Drawings & O&M Manual",
+        "unit_cost": 380,
+        "quantity": 1,
+        "total": 380
+      }
+    },
+    "professional_total": 2130,
+    "category_summary": {
+      "Major Equipment (CAPEX)": 26850,
+      "Support Equipment & Monitoring": 7385,
+      "Installation & Labor": 7020,
+      "Professional Services & Compliance": 2130
+    },
+    "subtotal": 43385,
+    "vat": 6507.75,
+    "grand_total": 49892.75,
+    "budget": 50000,
+    "variance": 107.25,
+    "variance_percentage": 0.21
+  },
+  "technical_specs": {
+    "system_type": "Grid-Tied Hybrid with Battery Backup",
+    "installation_type": "Roof-Mounted Residential",
+    "compliance": "NRS 097-2-1:2017, SANS 10142-1:2017",
+    "monitoring": "Huawei FusionSolar App + WiFi CCTV",
+    "metering": "Bi-directional Smart Metering (E460)",
+    "safety": "AC/DC Surge Protection, Earthing, Isolators"
+  }
+}

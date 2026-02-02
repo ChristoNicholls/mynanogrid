@@ -1,0 +1,42 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "solar installation costs South Africa 2026 labor rates electrician",
+  "results": [
+    {
+      "title": "How much it costs to install solar in South Africa \u2013 Daily Investor",
+      "url": "https://dailyinvestor.com/energy/89129/how-much-it-costs-to-install-solar-in-south-africa/",
+      "domain": "dailyinvestor.com",
+      "description": "Choosing the right type of solar system can have a significant impact on the amount consumers will save on their electricity bills, and how much they need to spend upfront.",
+      "favicon_url": "https://dailyinvestor.com/wp-content/themes/daily-investor/img/icons/favicon.png"
+    },
+    {
+      "title": "Pricelist - prices 2026: Electricians - Procompare.co.za",
+      "url": "https://www.procompare.co.za/prices/electricians/electrician-prices",
+      "domain": "www.procompare.co.za",
+      "description": "Interested in how much do electricians cost in 2026? Based on the projects carried out, we've put together an electricians cost guide:",
+      "favicon_url": "https://www.procompare.co.za/static/favicons/www.procompare.co.za/favicon-32x32.png?v=1721733216"
+    },
+    {
+      "title": "Cost Breakdown of Solar Mounting Systems \u2013 Deo Solar",
+      "url": "https://deosolar.co.za/cost-breakdown-solar-mounting-systems/",
+      "domain": "deosolar.co.za",
+      "description": "Solar mounting system costs encompass materials, labor, and regional variations, impacting your investment. Discover how these factors influence your financial decisions.",
+      "favicon_url": "https://deosolar.co.za/wp-content/uploads/2024/06/DeoSolar-Favicon-1.svg"
+    },
+    {
+      "title": "Electrician Prices 2026: Guide to Electrician Call Out Rate in SA",
+      "url": "https://thirtyone.co.za/electrician-prices/",
+      "domain": "thirtyone.co.za",
+      "description": "Find 2026 electrician prices in South Africa. Our guide covers residential & commercial electrical services, helping you budget!",
+      "favicon_url": "https://thirtyone.co.za/wp-content/uploads/2026/01/favicon-150x150.png"
+    },
+    {
+      "title": "Electrical Installation Pricing in Pretoria, North, Centurion & Midrand",
+      "url": "https://handymanpretoria.co.za/electrical-installation-pricing/",
+      "domain": "handymanpretoria.co.za",
+      "description": "Electrical Installation Pricing: How to Get Accurate Electrical Compliance Certificate Cost and Hire Electrician Cost in Pretoria & Centurion",
+      "favicon_url": "https://handymanpretoria.co.za/wp-content/uploads/2026/01/favicon-150x150.png"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "E460 smart meter bi-directional 4 quadrant price South Africa 2026",
+  "results": [
+    {
+      "title": "Landis+Gyr E460 - Landis+Gyr",
+      "url": "https://www.landisgyr.eu/product/landisgyr-e460-1ph-din-rail/",
+      "domain": "www.landisgyr.eu",
+      "description": "The E460 smart prepayment meter solution is designed for open standard prepayment and smart metering communication needs. The portfolio includes advanced, single phase (DIN Rail and BS) and three phase, multi-function, STS keypad based, G3 PLC smart prepayment meter solutions.",
+      "favicon_url": "https://www.landisgyr.eu/favicon.ico"
+    },
+    {
+      "title": "Landis & Gyr E460S Three Phase Split Smart Meter and CIU \u2013 i-Switch Prepaid Metering",
+      "url": "https://iswitch.co.za/product/landis-gyr-e460s-three-phase-split-smart-meter-and-ciu/",
+      "domain": "iswitch.co.za",
+      "description": null,
+      "favicon_url": "https://iswitch.co.za/wp-content/uploads/2023/04/cropped-icon-32x32.png"
+    },
+    {
+      "title": "Technical Specification E460 1ph DIN Rail - D000052488a | PDF | Electrical Engineering | Electricity",
+      "url": "https://www.scribd.com/document/850308354/Technical-Specification-E460-1ph-DIN-Rail-D000052488a",
+      "domain": "www.scribd.com",
+      "description": "Technical-Specification-E460-1ph-DIN-Rail_D000052488a - Free download as PDF File (.pdf), Text File (.txt) or read online for free. The E460 single-phase DIN-Rail smart prepayment meter is designed for residential use, featuring advanced e-metering functionality and supporting open standard communications like OFDM G3-PLC. It operates in both offline and online modes, offering various prepayment and smart metering options, including emergency credit and Time of Use configurations. The meter is equipped with anti-tamper features, extensive logging capabilities, and can be integrated into an Advanced Metering Infrastructure (AMI) system for enhanced utility management.",
+      "favicon_url": "https://s-f.scribdassets.com/scribd_rebrand.ico?abc96e78e?v=5"
+    },
+    {
+      "title": "Landis Gyr Prepaid Meter Installation Manual | PDF | Electric Power | Electricity",
+      "url": "https://www.scribd.com/document/795205246/Landis-Gyr-Prepaid-Meter-Installation-Manual-1",
+      "domain": "www.scribd.com",
+      "description": "Landis Gyr Prepaid Meter Installation Manual (1) - Free download as PDF File (.pdf), Text File (.txt) or read online for free. L + G installation",
+      "favicon_url": "https://s-f.scribdassets.com/scribd_rebrand.ico?abc96e78e?v=5"
+    }
+  ]
+}

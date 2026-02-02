@@ -1,0 +1,42 @@
+{
+  "type": "web_search_results",
+  "tool": "firecrawl",
+  "query": "NRS097 South Africa shared transformer export specifications grid connection small scale embedded generation",
+  "results": [
+    {
+      "title": "UDC",
+      "url": "https://www.sseg.org.za/wp-content/uploads/2014/01/NRS-097-2-3-Feb2023.pdf",
+      "domain": "www.sseg.org.za",
+      "description": null,
+      "favicon_url": null
+    },
+    {
+      "title": "NRS 097-2-1 2.0",
+      "url": "https://solar-training.org/wp-content/uploads/2022/05/NRS-097-2-1_2017.pdf",
+      "domain": "solar-training.org",
+      "description": null,
+      "favicon_url": null
+    },
+    {
+      "title": "NRS097-2-3ED1_14-05-22_ed_BM.pdf",
+      "url": "https://pqrs.co.za/wp-content/uploads/2015/03/NRS-097-2-3-final-2014.pdf",
+      "domain": "pqrs.co.za",
+      "description": null,
+      "favicon_url": null
+    },
+    {
+      "title": null,
+      "url": "https://www.salga.org.za/Documents/Knowledge-products-per-theme/Municipal-Trading-Services/SSEG%20-%20Guide%20for%20SA%20Municipal%20Distributors.pdf",
+      "domain": "www.salga.org.za",
+      "description": null,
+      "favicon_url": null
+    },
+    {
+      "title": null,
+      "url": "https://rise.esmap.org/sites/default/files/library/south-africa/Renewable%20Energy/South%20Africa_GUIDELINES%20FOR%20EMBEDDED%20GENERATION%20City%20of%20Cape%20Town.pdf",
+      "domain": "rise.esmap.org",
+      "description": null,
+      "favicon_url": null
+    }
+  ]
+}

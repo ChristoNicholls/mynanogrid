@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The UtCS Nano-Grid Design Framework</title>
+    <meta name="description" content="Professional nano-grid design framework with engineering diagrams and NRS097 compliance">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .tab-button {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab-button.active {
+            color: #2563eb;
+            border-bottom: 3px solid #2563eb;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .engineering-diagram {
+            width: 100%;
+            height: auto;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+        }
+        
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+        
+        .flow-arrow {
+            animation: flowPulse 2s infinite;
+        }
+        
+        @keyframes flowPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <img src="utcs-logo.png" alt="UtCS Logo" class="h-16 w-16 object-contain bg-white rounded-lg p-1">
+                    <div>
+                        <h1 class="text-3xl font-bold">The UtCS Nano-Grid Design Framework</h1>
+                        <p class="text-blue-100 mt-1">Sustainable. Energy. Simplified.</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-lg font-semibold">UtCS (Pty) Ltd</p>
+                    <p class="text-blue-100 text-sm">Eng. C. Nicholls</p>
+                    <p class="text-blue-100 text-xs">CONFIDENTIAL</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex space-x-1 overflow-x-auto">
+                <button onclick="switchTab('home')" class="tab-button active px-6 py-4 font-semibold text-gray-600 hover:text-blue-600 whitespace-nowrap">
+                    <i class="fas fa-home mr-2"></i>Energy Flow Diagram
+                </button>
+                <button onclick="switchTab('nrs097')" class="tab-button px-6 py-4 font-semibold text-gray-600 hover:text-blue-600 whitespace-nowrap">
+                    <i class="fas fa-network-wired mr-2"></i>NRS097 Network
+                </button>
+                <button onclick="switchTab('framework')" class="tab-button px-6 py-4 font-semibold text-gray-600 hover:text-blue-600 whitespace-nowrap">
+                    <i class="fas fa-project-diagram mr-2"></i>Deployment Framework
+                </button>
+                <button onclick="switchTab('specs')" class="tab-button px-6 py-4 font-semibold text-gray-600 hover:text-blue-600 whitespace-nowrap">
+                    <i class="fas fa-file-alt mr-2"></i>System Specifications & BOQ
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Tab 1: Energy Flow Diagram -->
+        <div id="home-tab" class="tab-content active">
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-project-diagram text-blue-600 mr-3"></i>
+                    24-Hour Energy Flow Engineering Diagram
+                </h2>
+                <p class="text-gray-600 mb-6">Professional engineering diagram showing energy generation, storage, and consumption patterns</p>
+                
+                <!-- Energy Flow Diagram -->
+                <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                    <canvas id="energyFlowDiagram" class="engineering-diagram"></canvas>
+                </div>
+
+                <!-- Time-based Energy Profile Chart -->
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">24-Hour Energy Generation & Consumption Profile</h3>
+                        <div class="chart-container">
+                            <canvas id="energyProfileChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white border-2 border-gray-200 rounded-lg p-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Battery State of Charge (SOC) Profile</h3>
+                        <div class="chart-container">
+                            <canvas id="batterySOCChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Energy Flow Legend -->
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+                        <div class="flex items-center">
+                            <i class="fas fa-sun text-yellow-500 text-2xl mr-3"></i>
+                            <div>
+                                <p class="font-semibold text-gray-800">Solar Generation</p>
+                                <p class="text-2xl font-bold text-yellow-600">2.75 kW</p>
+                                <p class="text-xs text-gray-600">Peak @ Noon</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+                        <div class="flex items-center">
+                            <i class="fas fa-battery-three-quarters text-orange-500 text-2xl mr-3"></i>
+                            <div>
+                                <p class="font-semibold text-gray-800">Battery Capacity</p>
+                                <p class="text-2xl font-bold text-orange-600">10.24 kWh</p>
+                                <p class="text-xs text-gray-600">9.22 kWh Usable</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                        <div class="flex items-center">
+                            <i class="fas fa-home text-green-500 text-2xl mr-3"></i>
+                            <div>
+                                <p class="font-semibold text-gray-800">Daily Capacity</p>
+                                <p class="text-2xl font-bold text-green-600">18.5 kWh</p>
+                                <p class="text-xs text-gray-600">PV + Battery</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                        <div class="flex items-center">
+                            <i class="fas fa-plug text-blue-500 text-2xl mr-3"></i>
+                            <div>
+                                <p class="font-semibold text-gray-800">Grid Connection</p>
+                                <p class="text-2xl font-bold text-blue-600">3 kW</p>
+                                <p class="text-xs text-gray-600">Bidirectional</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Overview -->
+            <section class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-solar-panel text-blue-600 mr-3"></i>
+                    R50k System Overview
+                </h2>
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600 font-medium">Total Investment</p>
+                        <p class="text-3xl font-bold text-blue-700">R49,893</p>
+                        <p class="text-xs text-gray-500 mt-1">Incl. VAT</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600 font-medium">PV Capacity</p>
+                        <p class="text-3xl font-bold text-green-700">2.75 kW</p>
+                        <p class="text-xs text-gray-500 mt-1">5 × 550W Panels</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600 font-medium">Battery Storage</p>
+                        <p class="text-3xl font-bold text-orange-700">10.24 kWh</p>
+                        <p class="text-xs text-gray-500 mt-1">9.22 kWh Usable</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg">
+                        <p class="text-sm text-gray-600 font-medium">Daily Capacity</p>
+                        <p class="text-3xl font-bold text-purple-700">18.5 kWh</p>
+                        <p class="text-xs text-gray-500 mt-1">PV + Battery</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Tab 2: NRS097 Network Visualization -->
+        <div id="nrs097-tab" class="tab-content">
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-network-wired text-blue-600 mr-3"></i>
+                    NRS097 Shared Transformer Network Design
+                </h2>
+                <p class="text-gray-600 mb-6">Engineering diagram of 60A single-phase houses on shared feeder with ADMD calculations</p>
+
+                <!-- ADMD Explanation -->
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg mb-6 border-l-4 border-blue-600">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-info-circle text-blue-600 mr-3"></i>
+                        Understanding ADMD (After Diversity Maximum Demand)
+                    </h3>
+                    <div class="space-y-3 text-gray-700">
+                        <p><strong>Definition:</strong> ADMD is the maximum power demand that a group of consumers will simultaneously place on the electrical network after considering diversity. It accounts for the statistical reality that not all consumers use their maximum demand at the same time.</p>
+                        
+                        <p><strong>Why ADMD Matters:</strong> If we sized transformers based on the sum of all individual maximum demands, the infrastructure would be vastly oversized and economically unviable. ADMD allows for realistic, cost-effective network planning.</p>
+                        
+                        <div class="bg-white p-4 rounded-lg mt-4">
+                            <h4 class="font-semibold text-gray-800 mb-2">ADMD Calculation Example:</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li>• <strong>Individual House Max Demand:</strong> 13.8 kVA (60A @ 230V)</li>
+                                <li>• <strong>Total Installed Demand (57 houses):</strong> 18 × 13.8 = 248.4 kVA</li>
+                                <li>• <strong>ADMD Factor (Residential):</strong> 0.35 - 0.45 (typically 0.4)</li>
+                                <li>• <strong>Actual Maximum Demand:</strong> 248.4 × 0.4 = 314.6 kVA</li>
+                                <li>• <strong>Transformer Size Required:</strong> 315 kVA ✓</li>
+                            </ul>
+                        </div>
+                        
+                        <p><strong>Network Planning Application:</strong> Using ADMD factor of 0.4, a 315 kVA mini-sub transformer can reliably serve approximately 57 houses with 60A single-phase supply, even though their combined maximum demand would theoretically be 248.4 kVA.</p>
+                    </div>
+                </div>
+
+                <!-- ADMD Information Panel -->
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-home text-blue-600 mr-2"></i>
+                            Per House Specification
+                        </h3>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li><strong>Supply:</strong> 60A Single Phase (230V)</li>
+                            <li><strong>Max Demand:</strong> 13.8 kVA</li>
+                            <li><strong>Max Export:</strong> 3.68 kW (16A @ 230V)</li>
+                            <li><strong>Nano-Grid:</strong> 2.75 kW PV + 10.24 kWh BESS</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-calculator text-green-600 mr-2"></i>
+                            ADMD Calculations
+                        </h3>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li><strong>ADMD Factor:</strong> 0.35 - 0.45</li>
+                            <li><strong>Avg per House:</strong> ~5.5 kVA (@ 0.4 ADMD)</li>
+                            <li><strong>Mini-Sub Capacity:</strong> 315 kVA</li>
+                            <li><strong>Houses per Mini-Sub:</strong> ~57 houses</li>
+                        </ul>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-bolt text-purple-600 mr-2"></i>
+                            NRS097 Export Limits
+                        </h3>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li><strong>Per Phase Export:</strong> Max 25% of supply</li>
+                            <li><strong>60A Supply:</strong> 15A export limit</li>
+                            <li><strong>Max Export Power:</strong> 3.45 kW @ 230V</li>
+                            <li><strong>System Compliance:</strong> 2.75 kW ✓</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Network Diagram -->
+                <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Network Topology Diagram</h3>
+                    <canvas id="networkDiagram" class="engineering-diagram"></canvas>
+                </div>
+
+                <!-- Network Statistics -->
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Network Configuration Summary</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-3">Transformer Specifications</h4>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li class="flex justify-between">
+                                    <span>Transformer Rating:</span>
+                                    <strong>315 kVA</strong>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>Voltage:</span>
+                                    <strong>11kV / 400V-230V</strong>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>Houses Connected:</span>
+                                    <strong>57 houses</strong>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>Total Installed Demand:</span>
+                                    <strong>786.6 kVA (57 × 13.8 kVA)</strong>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>ADMD Demand (0.4 factor):</span>
+                                    <strong>314.6 kVA</strong>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>Utilization Factor:</span>
+                                    <strong>99.9%</strong>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-3">Export Scenario Analysis</h4>
+                            <ul class="space-y-2 text-sm text-gray-600">
+                                <li class="flex justify-between">
+                                    <span>Max Export per House:</span>
+                                    <strong>2.75 kW (System Limited)</strong>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>Simultaneous Export (50%):</span>
+                                    <strong>78.4 kW (29 houses)</strong>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>Peak Export (All Houses):</span>
+                                    <strong>156.8 kW (57 houses)</strong>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>Transformer Reverse Flow:</span>
+                                    <strong>49.8% of rating</strong>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>NRS097 Compliance:</span>
+                                    <strong class="text-green-600">✓ Compliant</strong>
+                                </li>
+                                <li class="flex justify-between">
+                                    <span>Grid Stability:</span>
+                                    <strong class="text-green-600">✓ Maintained</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Tab 3: Deployment Framework -->
+        <div id="framework-tab" class="tab-content">
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-project-diagram text-blue-600 mr-3"></i>
+                    UtCS Mass Deployment Framework
+                </h2>
+                <p class="text-gray-600 mb-6">Comprehensive framework for nano-grid mass deployment</p>
+
+                <!-- Key Role Players -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Key Role Players</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg card-hover">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-building text-blue-600 text-3xl mr-3"></i>
+                                <h4 class="font-bold text-gray-800">Program Owner</h4>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-2"><strong>Municipality</strong></p>
+                            <p class="text-xs text-gray-600">Public sector oversight and governance</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg card-hover">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-hand-holding-usd text-green-600 text-3xl mr-3"></i>
+                                <h4 class="font-bold text-gray-800">CAPEX Acquisition</h4>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-2"><strong>Private Funders</strong></p>
+                            <p class="text-xs text-gray-600">Capital expenditure financing through PPP</p>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg card-hover">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-cogs text-purple-600 text-3xl mr-3"></i>
+                                <h4 class="font-bold text-gray-800">Program Execution</h4>
+                            </div>
+                            <p class="text-sm text-gray-700 mb-2"><strong>UtCS</strong></p>
+                            <p class="text-xs text-gray-600">Design, execution, and oversight</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Execution Framework: Three Pillars -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">UtCS Execution Framework: Three Pillars</h3>
+                    
+                    <!-- Pillar 1: PLACE -->
+                    <div class="mb-6 bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-lg">
+                        <h4 class="text-lg font-bold text-blue-800 mb-4 flex items-center">
+                            <i class="fas fa-map-marked-alt text-blue-600 mr-3"></i>
+                            PLACE
+                        </h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h5 class="font-semibold text-gray-800 mb-2">Installation Location</h5>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Drone-based rooftop assessments</li>
+                                    <li>• Site evaluation & suitability</li>
+                                    <li>• Location establishment</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h5 class="font-semibold text-gray-800 mb-2">Warehouse Operations</h5>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Equipment inventory management</li>
+                                    <li>• Deployment kits compilation</li>
+                                    <li>• Kits dispatching</li>
+                                    <li>• Post-dispatch management</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h5 class="font-semibold text-gray-800 mb-2">Consumer Info Pods</h5>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Information centers</li>
+                                    <li>• End-user support</li>
+                                    <li>• Community engagement</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 2: PEOPLE -->
+                    <div class="mb-6 bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-lg">
+                        <h4 class="text-lg font-bold text-green-800 mb-4 flex items-center">
+                            <i class="fas fa-users text-green-600 mr-3"></i>
+                            PEOPLE
+                        </h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h5 class="font-semibold text-gray-800 mb-2">Consumers</h5>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• In-person education</li>
+                                    <li>• Contracting process</li>
+                                    <li>• Post-commissioning activation</li>
+                                    <li>• Monitoring & evaluation</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h5 class="font-semibold text-gray-800 mb-2">Deployment Teams</h5>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• UtCS training programs</li>
+                                    <li>• Deployment operations</li>
+                                    <li>• Maintenance services</li>
+                                    <li>• Efficiency: 300 per R250k</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pillar 3: EQUIPMENT -->
+                    <div class="mb-6 bg-gradient-to-r from-orange-50 to-orange-100 p-6 rounded-lg">
+                        <h4 class="text-lg font-bold text-orange-800 mb-4 flex items-center">
+                            <i class="fas fa-toolbox text-orange-600 mr-3"></i>
+                            EQUIPMENT
+                        </h4>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h5 class="font-semibold text-gray-800 mb-2">Core Systems</h5>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• PV Solar Panels</li>
+                                    <li>• Hybrid Inverters</li>
+                                    <li>• BESS (Battery Storage)</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h5 class="font-semibold text-gray-800 mb-2">Monitoring</h5>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Smart Meters (E460)</li>
+                                    <li>• WiFi CCTV Cameras</li>
+                                    <li>• WiFi Routers</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h5 class="font-semibold text-gray-800 mb-2">Support Infrastructure</h5>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• Mounting structures</li>
+                                    <li>• Protection equipment</li>
+                                    <li>• Cabling & peripherals</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Implementation Phases -->
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Implementation Phases</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">1</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Assessment Phase</h4>
+                                <p class="text-sm text-gray-600">Drone-based rooftop assessments for site suitability</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">2</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Logistics & Supply Chain</h4>
+                                <p class="text-sm text-gray-600">Warehouse management, kit compilation, and dispatching</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">3</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Consumer Engagement</h4>
+                                <p class="text-sm text-gray-600">Education, contracting, and activation</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">4</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Deployment & Maintenance</h4>
+                                <p class="text-sm text-gray-600">Installation and ongoing system support</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-4 flex-shrink-0">5</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Continuous Improvement</h4>
+                                <p class="text-sm text-gray-600">Monitoring, evaluation, and optimization</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Tab 4: System Specifications & BOQ -->
+        <div id="specs-tab" class="tab-content">
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-cogs text-blue-600 mr-3"></i>
+                    System Design Specifications
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="border-l-4 border-blue-500 pl-4 card-hover">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-solar-panel text-blue-500 mr-2"></i>
+                            PV Array
+                        </h3>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li><strong>Capacity:</strong> 2.75 kW</li>
+                            <li><strong>Panels:</strong> 5 × 550W</li>
+                            <li><strong>Brand:</strong> JA Solar JAM72S30</li>
+                            <li><strong>Type:</strong> Monocrystalline PERC</li>
+                            <li><strong>Efficiency:</strong> 21.3%</li>
+                            <li><strong>Warranty:</strong> 25 years</li>
+                            <li><strong>Daily Gen:</strong> 9.28 kWh/day</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-green-500 pl-4 card-hover">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-microchip text-green-500 mr-2"></i>
+                            Hybrid Inverter
+                        </h3>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li><strong>Model:</strong> Huawei SUN2000-3KTL-L1</li>
+                            <li><strong>Capacity:</strong> 3 kW</li>
+                            <li><strong>Type:</strong> Hybrid String</li>
+                            <li><strong>Efficiency:</strong> 98.3%</li>
+                            <li><strong>MPPT:</strong> 2 Trackers</li>
+                            <li><strong>Phase:</strong> Single Phase</li>
+                            <li><strong>Warranty:</strong> 10 years</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-orange-500 pl-4 card-hover">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-battery-full text-orange-500 mr-2"></i>
+                            Battery Storage
+                        </h3>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li><strong>Model:</strong> Huawei LUNA2000-5-S0</li>
+                            <li><strong>Modules:</strong> 2 × 5.12 kWh</li>
+                            <li><strong>Total:</strong> 10.24 kWh</li>
+                            <li><strong>Usable:</strong> 9.22 kWh (90% DoD)</li>
+                            <li><strong>Type:</strong> LiFePO4</li>
+                            <li><strong>Cycles:</strong> 6000 @ 90% DoD</li>
+                            <li><strong>Warranty:</strong> 10 years</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Complete BOQ -->
+            <section class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-file-invoice-dollar text-blue-600 mr-3"></i>
+                    Complete Bill of Quantities (BOQ)
+                </h2>
+                
+                <!-- CAPEX -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3 bg-blue-50 p-3 rounded">Major Equipment (CAPEX)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="text-left p-3">Item Description</th>
+                                    <th class="text-center p-3">Qty</th>
+                                    <th class="text-right p-3">Unit Price</th>
+                                    <th class="text-right p-3">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr>
+                                    <td class="p-3">JA Solar JAM72S30 550W Monocrystalline PERC Panel</td>
+                                    <td class="text-center p-3">5</td>
+                                    <td class="text-right p-3">R 1,520</td>
+                                    <td class="text-right p-3 font-semibold">R 7,600</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Huawei SUN2000-3KTL-L1 3kW Hybrid String Inverter</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 8,300</td>
+                                    <td class="text-right p-3 font-semibold">R 8,300</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Huawei LUNA2000-5-S0 5.12kWh Battery Module (LiFePO4)</td>
+                                    <td class="text-center p-3">2</td>
+                                    <td class="text-right p-3">R 4,200</td>
+                                    <td class="text-right p-3 font-semibold">R 8,400</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Landis+Gyr E460 4-Quadrant Bi-Directional Smart Meter</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 2,550</td>
+                                    <td class="text-right p-3 font-semibold">R 2,550</td>
+                                </tr>
+                                <tr class="bg-blue-100 font-bold">
+                                    <td colspan="3" class="p-3 text-right">CAPEX Subtotal:</td>
+                                    <td class="text-right p-3">R 26,850</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Support Equipment & Monitoring -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3 bg-green-50 p-3 rounded">Support Equipment & Monitoring</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="text-left p-3">Item Description</th>
+                                    <th class="text-center p-3">Qty</th>
+                                    <th class="text-right p-3">Unit Price</th>
+                                    <th class="text-right p-3">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr>
+                                    <td class="p-3">WiFi Router (Outdoor IP65 Rated)</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 620</td>
+                                    <td class="text-right p-3 font-semibold">R 620</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">WiFi CCTV Camera 2MP (Hikvision or equivalent)</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 880</td>
+                                    <td class="text-right p-3 font-semibold">R 880</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Roof Mounting Structure (Aluminum, 5 panels)</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 1,650</td>
+                                    <td class="text-right p-3 font-semibold">R 1,650</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">AC/DC Protection & Isolator Package</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 1,650</td>
+                                    <td class="text-right p-3 font-semibold">R 1,650</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Cabling (DC: 15m, AC: 12m, 4mm² & 6mm²)</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 945</td>
+                                    <td class="text-right p-3 font-semibold">R 945</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">MC4 Connectors & Cable Terminals</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 420</td>
+                                    <td class="text-right p-3 font-semibold">R 420</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Earthing Kit (Rods, Clamps, Cable)</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 580</td>
+                                    <td class="text-right p-3 font-semibold">R 580</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">PVC Conduit & Trunking (10m)</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 260</td>
+                                    <td class="text-right p-3 font-semibold">R 260</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Weatherproof Enclosure IP55 (for protection devices)</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 380</td>
+                                    <td class="text-right p-3 font-semibold">R 380</td>
+                                </tr>
+                                <tr class="bg-green-100 font-bold">
+                                    <td colspan="3" class="p-3 text-right">Support Equipment Subtotal:</td>
+                                    <td class="text-right p-3">R 7,385</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Installation & Labor -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3 bg-orange-50 p-3 rounded">Installation & Labor</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="text-left p-3">Item Description</th>
+                                    <th class="text-center p-3">Qty</th>
+                                    <th class="text-right p-3">Unit Price</th>
+                                    <th class="text-right p-3">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr>
+                                    <td class="p-3">PV Panel Installation (Roof mounting, alignment)</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 1,250</td>
+                                    <td class="text-right p-3 font-semibold">R 1,250</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Inverter & Battery Installation (Wall mounting, wiring)</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 1,500</td>
+                                    <td class="text-right p-3 font-semibold">R 1,500</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Electrical Work & DB Board Modifications</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 1,800</td>
+                                    <td class="text-right p-3 font-semibold">R 1,800</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Smart Meter Installation & Configuration</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 750</td>
+                                    <td class="text-right p-3 font-semibold">R 750</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">CCTV Camera Installation & WiFi Network Setup</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 520</td>
+                                    <td class="text-right p-3 font-semibold">R 520</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">WiFi Router Configuration & Network Integration</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 350</td>
+                                    <td class="text-right p-3 font-semibold">R 350</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">System Commissioning & User Training</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 850</td>
+                                    <td class="text-right p-3 font-semibold">R 850</td>
+                                </tr>
+                                <tr class="bg-orange-100 font-bold">
+                                    <td colspan="3" class="p-3 text-right">Installation & Labor Subtotal:</td>
+                                    <td class="text-right p-3">R 7,020</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Professional Services -->
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3 bg-purple-50 p-3 rounded">Professional Services</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="text-left p-3">Item Description</th>
+                                    <th class="text-center p-3">Qty</th>
+                                    <th class="text-right p-3">Unit Price</th>
+                                    <th class="text-right p-3">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr>
+                                    <td class="p-3">Electrical Design & Single-Line Diagram</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 1,000</td>
+                                    <td class="text-right p-3 font-semibold">R 1,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Certificate of Compliance (CoC)</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 750</td>
+                                    <td class="text-right p-3 font-semibold">R 750</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">Documentation & User Manuals</td>
+                                    <td class="text-center p-3">1</td>
+                                    <td class="text-right p-3">R 380</td>
+                                    <td class="text-right p-3 font-semibold">R 380</td>
+                                </tr>
+                                <tr class="bg-purple-100 font-bold">
+                                    <td colspan="3" class="p-3 text-right">Professional Services Subtotal:</td>
+                                    <td class="text-right p-3">R 2,130</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Investment Summary -->
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg border-2 border-blue-300">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Investment Summary</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-lg">
+                            <span class="text-gray-700">Major Equipment (CAPEX):</span>
+                            <span class="font-bold text-blue-700">R 26,850</span>
+                        </div>
+                        <div class="flex justify-between text-lg">
+                            <span class="text-gray-700">Support Equipment & Monitoring:</span>
+                            <span class="font-bold text-green-700">R 7,385</span>
+                        </div>
+                        <div class="flex justify-between text-lg">
+                            <span class="text-gray-700">Installation & Labor:</span>
+                            <span class="font-bold text-orange-700">R 7,020</span>
+                        </div>
+                        <div class="flex justify-between text-lg">
+                            <span class="text-gray-700">Professional Services:</span>
+                            <span class="font-bold text-purple-700">R 2,130</span>
+                        </div>
+                        <div class="border-t-2 border-gray-300 pt-3 flex justify-between text-lg">
+                            <span class="text-gray-700">Subtotal (excl VAT):</span>
+                            <span class="font-bold">R 43,385</span>
+                        </div>
+                        <div class="flex justify-between text-lg">
+                            <span class="text-gray-700">VAT (15%):</span>
+                            <span class="font-bold">R 6,508</span>
+                        </div>
+                        <div class="border-t-4 border-blue-600 pt-4 flex justify-between text-2xl">
+                            <span class="text-gray-900 font-bold">GRAND TOTAL (incl VAT):</span>
+                            <span class="font-bold text-blue-700">R 49,893</span>
+                        </div>
+                        <div class="flex justify-between text-sm text-green-600 bg-green-50 p-3 rounded">
+                            <span>Budget Variance:</span>
+                            <span class="font-semibold">+R 107 (0.2% under R50,000 budget) ✓</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 mt-12 py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm">© 2026 UtCS (Pty) Ltd | Engineer: C. Nicholls | Reference: UTCS-SOLAR-2026-001</p>
+            <p class="text-xs text-gray-400 mt-2"><i class="fas fa-phone mr-2"></i>Tel: 021 201 1364 | <i class="fas fa-envelope mr-2"></i>Email: info@utcs.co.za</p>
+            <p class="text-xs text-gray-400 mt-1">CONFIDENTIAL - For Authorized Use Only</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
